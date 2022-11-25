@@ -1,9 +1,11 @@
 import { Button, useColorMode } from '@chakra-ui/react'
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
+interface Props {
+  colorMode:any,
+  toggleColorMode:any
+}
 
-
-const ToggleTheme = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+const ToggleTheme = ({colorMode, toggleColorMode}:Props) => {
 
   const handleToggleTheme = () => {
     toggleColorMode()
@@ -12,7 +14,6 @@ const ToggleTheme = () => {
   return (
     <Button
       onClick={handleToggleTheme}
-      justifySelf={'flex-end'}
     >
       {colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
     </Button>

@@ -17,11 +17,7 @@ export const theme = extendTheme({
       700: '#334866',
       800: '#223044',
       900: '#111822'
-    },
-    secondary: {
-
     }
-    
   }
 })
 
