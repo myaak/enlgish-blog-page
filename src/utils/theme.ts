@@ -5,6 +5,10 @@ export const theme = extendTheme({
     initialColorMode: "dark",
     useSystemColorMode: true
   },
+  fonts: {
+    heading: "Sora",
+    body: "Sora"
+  },
   colors: {
     primary: {
       50: '#EEF2F6',

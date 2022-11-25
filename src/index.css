@@ -5,11 +5,20 @@
   transition: 400;
 }
 
+html, body {
+  width: 100%;
+  height:100%;
+  overflow-x:hidden;
+}
+@font-face {
+font-family: "Sora";
+src: local("Sora"),
+ url("./font/Sora-Regular.ttf") format("truetype");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Sora";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
