@@ -15,21 +15,21 @@ function App() {
 
 
   return (
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <div className="App">
-            <header>
-              <Navbar
-                colorMode={colorMode}
-                toggleColorMode={toggleColorMode}
-              />
-            </header>
-            <main>
-              <AppRouter />
-            </main>
-          </div>
-        </ThemeProvider>
-      </BrowserRouter>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <header>
+            <Navbar
+              colorMode={colorMode}
+              toggleColorMode={toggleColorMode}
+            />
+          </header>
+          <main>
+            <AppRouter themeColor={colorMode} />
+          </main>
+        </div>
+      </ThemeProvider>
+    </BrowserRouter>
   )
 }
 

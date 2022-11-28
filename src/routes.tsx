@@ -11,10 +11,6 @@ export const publicRoutes: RouteObject[] = [
     element: <Home />
   },
   {
-    path: BLOG_ROUTE,
-    element: <Blog />
-  },
-  {
     path: ELEMENTS_ROUTE,
     element: <Elements />
   },

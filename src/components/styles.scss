@@ -1,4 +1,40 @@
 
+.popup__wrapper {
+  z-index: 2022;
+  width:100vw;
+  height: 100vh;
+  position:fixed;
+  left:0;
+  top: 0;
+  .blur {
+    width:100%;
+    height:100%;
+    background-color: black;
+    filter: opacity(70%);
+  }
+  .content {
+    width:50%;
+    height:80%;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow-x: hidden;
+    
+    .popup__header {
+      @media screen and (max-width: 440px) {
+    
+      }
+    }
+  
+    @media screen and (max-width: 440px) {
+      width: 99%;
+      height: 95%;
+    }
+  }
+
+}
+
 .blogpage__container {
   width: 1600px;
   margin: 0 auto;
@@ -24,6 +60,51 @@
 
     @media screen and (max-width:1600px) {
       width:100%;
+      padding: 0px 20px;
+    }
+    @media screen and (max-width: 440px) {
+      padding: 0 10px;
+    }
+
+
+    &__nav {
+      @media screen and (max-width: 440px) {
+        display: none;
+      }
+    }
+
+    &__mobile {
+      display:none;
+
+      @media screen and (max-width: 440px) {
+        display: block;
+      }
+
+      &__nav {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        left:0;
+        top: 0;
+        transition: 500;
+        animation: hamb .5s ease-out 1;
+
+        &__links {
+
+          & > * {
+            width: 100%;
+            text-align:center;
+            font-size: 25px;
+            padding: 15px 0;
+          }
+        }
+
+        @keyframes hamb {
+          0% { transform:translateX(-100%)}
+          50% { transform: translateX(-25%)}
+          100% { transform: translateX(0)}
+        }
+      }
     }
   
     &__logo {

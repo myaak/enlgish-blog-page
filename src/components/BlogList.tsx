@@ -2,9 +2,10 @@ import BlogItem from "./BlogItem"
 
 interface Props {
   blogs: Array<Object>
+  themeColor: string
 }
 
-const BlogList = ({ blogs }: Props) => {
+const BlogList = ({ blogs, themeColor }: Props) => {
   return (
     <div className="blog-list">
       <ul>
@@ -15,6 +16,7 @@ const BlogList = ({ blogs }: Props) => {
             date={item.date}
             title={item.title}
             description={item.description}
+            themeColor={themeColor}
           />
         ))}
       </ul>
