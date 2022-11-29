@@ -16,7 +16,7 @@ const Navbar = ({ colorMode, toggleColorMode }: Props) => {
   const [openHamburger, setOpenHamburger] = useState<boolean>(false)
 
   const handleOpenHamburger = () => {
-    setOpenHamburger((prev:boolean) => !prev)
+    setOpenHamburger((prev: boolean) => !prev)
   }
 
   return (
@@ -72,15 +72,15 @@ const Navbar = ({ colorMode, toggleColorMode }: Props) => {
           </ul>
         </div>
         <div className="navbar__mobile">
-          <button onClick={handleOpenHamburger}><HamburgerIcon 
+          <button onClick={handleOpenHamburger}><HamburgerIcon
             style={{
               width: '30px',
               height: '30px'
-            }}/></button>
-            {
-              openHamburger &&
-             <div className="navbar__mobile__nav" style={{
-                backgroundColor: colorMode === "dark" ? "#1a202c" : "#fff"
+            }} /></button>
+          {
+            openHamburger &&
+            <div className="navbar__mobile__nav" style={{
+              backgroundColor: colorMode === "dark" ? "#1a202c" : "#fff"
             }}>
               <div style={{
                 width: '100%',
@@ -88,9 +88,9 @@ const Navbar = ({ colorMode, toggleColorMode }: Props) => {
                 justifyContent: 'flex-end',
                 padding: '10px 10px',
               }}>
-               <button onClick={handleOpenHamburger}><CloseIcon /></button>
+                <button onClick={handleOpenHamburger}><CloseIcon /></button>
               </div>
-               <ul className="navbar__mobile__nav__links" style={{
+              <ul className="navbar__mobile__nav__links" style={{
               }}>
                 <ToggleTheme
                   colorMode={colorMode}
@@ -117,15 +117,18 @@ const Navbar = ({ colorMode, toggleColorMode }: Props) => {
                         '3px solid #03a9f4', //#da86a8
                       color: colorMode === "dark" ? '#03a9f4' : '#03a9f4' //#da86a8
                     }}
-                    onClick={() => setActiveLink(item)}
+                    onClick={() => {
+                      setActiveLink(item)
+                      setOpenHamburger((prev: boolean) => !prev)
+                    }}
                   >
                     <Link key={index} to={`/${item}`}>{item}</Link>
                   </Box>
                 ))}
-               </ul>
+              </ul>
             </div>
           }
-            
+
         </div>
       </div>
     </div>

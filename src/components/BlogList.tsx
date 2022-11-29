@@ -12,9 +12,15 @@ const BlogList = ({ blogs, themeColor }: Props) => {
         {blogs.map((item: any, index: number) => (
           <BlogItem
             key={index}
-            image={item.image}
-            date={item.date}
-            title={item.title}
+            props={{
+              image: item.image,
+              title: item.title,
+              date: item.date,
+              description: item.description,
+              allinfo: item.allinfo,
+              allinfo2: item.allinfo2,
+              allinfo3: item.allinfo3
+            }}
             description={item.description}
             themeColor={themeColor}
           />

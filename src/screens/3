@@ -1,0 +1,75 @@
+import { Modal } from '@chakra-ui/react'
+import { useState, Fragment } from 'react'
+import { PopUp } from '../components'
+import BlogList from '../components/BlogList'
+
+interface Props {
+  themeColor: string
+}
+
+
+const Blog = ({ themeColor }: Props) => {
+  const [blogs, setBlogs] = useState<Array<Object>>([
+    {
+      image: "kettle.jpg",
+      date: "25th of November",
+      title: "Gleb's bash and a teapot",
+      description: "In the early morning Gleb has done an unreal bash and got in trouble.",
+      allinfo: "There was a beatuful sunny day in the end of November. It was so warm outside. Gleb tried to recover his work life balance and set an alarm to 6 AM. I was sleeping till 10 AM and was dreaming about how not to go to the university, but Gleb decided to interrupt my sweet dreams. He started to do excercises in the middle of the room and remembered our yesterday's speech about BASH. Gleb didn't understand properly what bash mean and tried to hit me using his 'rotten' leg while I was lying on my side and scrolling Discord messages. Rotten Gleb grabbed onto the crossbars of our 2 - floored bed and swung his foot in my face.It was pretty close to reach my beautiful rotten face, but everything went well. After a few moments we realised that something disappered from our bedside table.A teapot was absolutely gone and something was dripping on the floor from the Stasyan's bed.  It was a sacred teapot where Stanislav was holding his boiled water. Unfortunately, after this couple of minutes all the boiled water was on his bed and every part was soaked. Stanislav was really angry about this situation and tried to fight Gleb but they decided to forget about all of this stuff."
+    },
+    {
+      date: "25th of November",
+      title: "Unreal night-fight",
+      description: "In the early morning Gleb has done an unreal bash and got in trouble.",
+      allinfo:
+        'It was a late evening. I was trying to watch a film on my phone and Gleb was trying to sleep. I asked him a really rotten question that got furious. Suddenly, he grabbed my phone and didn’t want to give it back. We started to fight. Fight lasted for about 30 minutes but it was absolutely amazing. During our fight we spilled two full teapots on each bed in the room. 
+      We also wasted at least 1.5 litres of clean water to pour into each other.Even our commandant came and said that we’re stupid idiots and we need to stop all of these.We were really disappointed but we continued it.Finally, I got my phone back but I had to sleep in soaked bed as well as Gleb.It was unforgettable fight filmed on iPhone camera that have a size for about 1.5GB.'
+    },
+    {
+      date: "25th of November",
+      title: "Gleb's bash and a teapot",
+      description: "In the early morning Gleb has done an unreal bash and got in trouble."
+    },
+    {
+      date: "25th of November",
+      title: "Gleb's bash and a teapot",
+      description: "In the early morning Gleb has done an unreal bash and got in trouble."
+    },
+    {
+      date: "25th of November",
+      title: "Gleb's bash and a teapot",
+      description: "In the early morning Gleb has done an unreal bash and got in trouble."
+    },
+    {
+      date: "25th of November",
+      title: "Gleb's bash and a teapot",
+      description: "In the early morning Gleb has done an unreal bash and got in trouble."
+    }
+  ])
+
+  const [openPop, setOpenPop] = useState<boolean>(false)
+
+
+  return (
+    <div className="blogpage">
+      <div style={{
+        fontSize: "100px",
+        fontWeight: 1000,
+        //height: window.innerHeight * 0.25, //300px 
+        backgroundColor: "#0fa1ff",//"#4411ff",
+        padding: `20px ${window.innerWidth / 19}px`,
+        // textAlign: 'center'
+      }}>
+        210NEWSROOM
+      </div>
+      <div className="blogpage__container">
+        <BlogList
+          blogs={blogs}
+          themeColor={themeColor}
+        />
+      </div>
+    </div >
+  )
+}
+
+export default Blog

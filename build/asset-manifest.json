@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1d79f31b.css",
+    "main.js": "/static/js/main.c918119b.js",
+    "static/js/787.244bc2d5.chunk.js": "/static/js/787.244bc2d5.chunk.js",
+    "static/media/Sora-Regular.ttf": "/static/media/Sora-Regular.59e8cd26fdf2c27c0ec7.ttf",
+    "index.html": "/index.html",
+    "main.1d79f31b.css.map": "/static/css/main.1d79f31b.css.map",
+    "main.c918119b.js.map": "/static/js/main.c918119b.js.map",
+    "787.244bc2d5.chunk.js.map": "/static/js/787.244bc2d5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1d79f31b.css",
+    "static/js/main.c918119b.js"
+  ]
+}
