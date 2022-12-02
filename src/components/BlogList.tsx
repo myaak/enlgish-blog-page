@@ -2,10 +2,11 @@ import BlogItem from "./BlogItem"
 
 interface Props {
   blogs: Array<Object>
+  liked: Array<Object>
   themeColor: string
 }
 
-const BlogList = ({ blogs, themeColor }: Props) => {
+const BlogList = ({ blogs, liked, themeColor }: Props) => {
   return (
     <div className="blog-list">
       <ul>
@@ -13,15 +14,15 @@ const BlogList = ({ blogs, themeColor }: Props) => {
           <BlogItem
             key={index}
             props={{
+              id: item.id,
+              isLiked: liked.filter((liked:any) => liked.blog_id === item.id).length ? true : false,
               image: item.image,
+              likes: item.likes,
               title: item.title,
               date: item.date,
               description: item.description,
-              allinfo: item.allinfo,
-              allinfo2: item.allinfo2,
-              allinfo3: item.allinfo3
+              content: item.content
             }}
-            description={item.description}
             themeColor={themeColor}
           />
         ))}
