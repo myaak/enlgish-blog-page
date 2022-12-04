@@ -34,7 +34,7 @@ const Navbar = ({ colorMode, toggleColorMode }: Props) => {
         borderBottom: colorMode === "dark" ? "2px solid #03a9f4" : " 2px solid #03a9f4" //#da96a8
       }}
     >
-      {openUserPanel && <UserPanel closePanel={handleOpenUserPanel} themeColor={colorMode}/>}
+      {openUserPanel && <UserPanel closePanel={handleOpenUserPanel} themeColor={colorMode} />}
       <div className="navbar">
         <div className="navbar__logo" style={{
           display: 'flex',
