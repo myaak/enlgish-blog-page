@@ -9,6 +9,7 @@ interface Props {
 }
 
 const PopUp = ({ props, themeColor, closePopUp }: Props) => {
+  console.log(props.content)
 
   return (
     <div className="popup__wrapper">
@@ -56,15 +57,10 @@ const PopUp = ({ props, themeColor, closePopUp }: Props) => {
           fontSize: '20px',
           lineHeight: '2em'
         }}>
-          
-          <p>...{props.allinfo}</p>
           {
-            props.allinfo2 &&
-            <p>...{props.allinfo2}</p>
-          }
-          {
-            props.allinfo3 && 
-            <p>...{props.allinfo3}</p>
+            props.content.map((item: any, index: number) => (
+              <p key={index}>...{item}</p>
+            ))
           }
         </div>
       </div>
