@@ -16,27 +16,27 @@ const Blog = ({ themeColor }: Props) => {
 
   const getLikes = async () => {
     await user
-      await fetch(`http://193.201.88.172:7000/likes/auth?email=${user.email}`, {
-        credentials: "include",
+    await fetch(`http://193.201.88.172:7000/likes/auth?email=${user.email}`, {
+      credentials: "include",
+    })
+      .catch(err => {
+        return
       })
-        .catch(err => {
+      .then(res => {
+        if (!res || !res.ok) {
+          console.log('not ok')
           return
-        })
-        .then(res => {
-          if (!res || !res.ok) {
-            console.log('not ok')
-            return
-          }
-          return res.json()
-        })
-        .then((data) => {
-          if (!data) {
-            return
-          }
-          setLikes([...data])
-        })
-    }
-  
+        }
+        return res.json()
+      })
+      .then((data) => {
+        if (!data) {
+          return
+        }
+        setLikes([...data])
+      })
+  }
+
 
   useEffect(() => {
     fetch('http://193.201.88.172:7000/blogs', {
@@ -56,10 +56,8 @@ const Blog = ({ themeColor }: Props) => {
           return
         }
         setBlogs([...data])
+        getLikes()
       })
-    setTimeout(() => {
-      getLikes()
-    },500)
   }, [])
 
 

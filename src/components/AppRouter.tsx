@@ -6,6 +6,7 @@ import LoginPage from '../screens/LoginPage'
 import { publicRoutes } from '../routes'
 import { useContext } from 'react'
 import { AccountContext } from './UserContext'
+import UserContext from './UserContext'
 
 interface Props {
   themeColor: string
@@ -13,7 +14,7 @@ interface Props {
 
 const AppRouter = ({ themeColor }: Props) => {
 
-  const {user} = useContext(AccountContext)
+  const { user } = useContext(AccountContext)
 
   return user.loggedIn ? (
     <Routes>
@@ -25,10 +26,14 @@ const AppRouter = ({ themeColor }: Props) => {
   )
     :
     (
-    <Routes>
-      <Route key={4} path={"/blog"} element={<Blog themeColor={themeColor} />} />
-      <Route key={5} path={"/login"} element={<LoginPage />} />
-      <Route key={6} path={"/signup"} element={<SignUp />} />
+      <Routes>
+        <Route key={4} path={"/blog"} element={
+          <UserContext>
+            <Blog themeColor={themeColor} />
+          </UserContext>
+        } />
+        <Route key={5} path={"/login"} element={<LoginPage />} />
+        <Route key={6} path={"/signup"} element={<SignUp />} />
       </Routes>
     )
 
