@@ -10,13 +10,36 @@ interface Props {
 const Blog = ({ themeColor }: Props) => {
   const [blogs, setBlogs] = useState<Array<Object>>([])
   const [likes, setLikes] = useState<Array<Object>>([])
+  const [comments, setComments] = useState<Array<Object>>([])
   const { user, setUser } = useContext(AccountContext)
 
 
 
   const getLikes = async () => {
-    await user
     await fetch(`http://193.201.88.172:7000/likes/auth?email=${user.email}`, {
+      credentials: "include",
+    })
+      .catch(err => {
+        console.log(err)
+        return
+      })
+      .then(res => {
+        if (!res || !res.ok) {
+          console.log('not ok')
+          return
+        }
+        return res.json()
+      })
+      .then((data) => {
+        if (!data) {
+          return
+        }
+        setLikes([...data])
+      })
+  }
+
+  const getComments = async () => {
+    await fetch('http://193.201.88.172:7000/comments', {
       credentials: "include",
     })
       .catch(err => {
@@ -33,7 +56,7 @@ const Blog = ({ themeColor }: Props) => {
         if (!data) {
           return
         }
-        setLikes([...data])
+        setComments([...data])
       })
   }
 
@@ -56,7 +79,9 @@ const Blog = ({ themeColor }: Props) => {
           return
         }
         setBlogs([...data])
-        getLikes()
+        getComments()
+        if (user.loggedIn)
+          getLikes()
       })
   }, [])
 
@@ -69,6 +94,7 @@ const Blog = ({ themeColor }: Props) => {
       </div>
       <div className="blogpage__container">
         <BlogList
+          comments={comments}
           blogs={blogs}
           liked={likes}
           themeColor={themeColor}

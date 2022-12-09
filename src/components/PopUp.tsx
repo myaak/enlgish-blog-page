@@ -1,18 +1,115 @@
-import { Image, Text } from '@chakra-ui/react'
-import React from 'react'
+import { FormEvent, useContext, useEffect, useState, useRef } from 'react'
+import { Image, Textarea, Button } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons'
+import CommentItem from './CommentItem'
+import {ArrowRightIcon} from '@chakra-ui/icons'
+import { AccountContext } from './UserContext'
+import NotAuth from './NotAuth'
 
 interface Props {
   props: any,
   themeColor: string,
-  closePopUp: () => void
+  closePopUp: () => void,
 }
 
 const PopUp = ({ props, themeColor, closePopUp }: Props) => {
-  console.log(props.content)
+
+  const {user} = useContext(AccountContext)
+
+  const [unAuth, setUnAuth] = useState<boolean>(false)
+  const [commentsArray, setCommentsArray] = useState<Array<Object>>([])
+  const [commentText, setCommentText] = useState<string>('')
+
+  const top = useRef<null | HTMLDivElement>(null)
+  const bottom = useRef<null | HTMLDivElement>(null)
+
+  useEffect(() => {
+    handleLoadComments()
+
+  }, [])
+
+  const redirectFromItem = () => {
+  }
+
+  const handleScrollAfterPost = () => {
+      setTimeout(() => {
+        if(bottom.current) {
+          bottom.current.scrollIntoView({behavior: 'smooth'})
+        }
+      },500)
+  }
+
+  const handlePostComment = async(event: FormEvent) => {
+    event.preventDefault()
+    if(!user.loggedIn) {
+      setUnAuth(true)
+      return
+    }
+    if(commentText === '') {
+      return
+    }
+
+    await fetch('http://193.201.88.172:7000/comments/postComment', {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email: user.email, blog_id: props.id, content: commentText })
+    })
+      .catch(err => {
+        console.log(err)
+        return
+      })
+      .then(res => {
+        if (!res || !res.ok) {
+          return
+        }
+        return res.json()
+      })
+      .then(data => {
+        setCommentsArray((old) => [...old, 
+        {
+          owner_username: user.username,
+          content: commentText,
+        }
+      ])
+      setCommentText('')
+      handleScrollAfterPost()
+      })
+      .finally(() => {
+      })
+  }
+
+
+  const handleLoadComments = async () => {
+    await fetch(`http://193.201.88.172:7000/comments/blogComments?blog_id=${props.id}`, {
+      credentials: "include",
+    })
+      .catch(err => {
+        console.log(err)
+        return
+      })
+      .then(res => {
+        console.log()
+        if (!res || !res.ok) {
+          console.log('not ok')
+          return
+        }
+        return res.json()
+      })
+      .then((data) => {
+        if (!data) {
+          return
+        }
+        setCommentsArray([...data])
+        console.log(data)
+      })
+  }
 
   return (
     <div className="popup__wrapper">
+      {unAuth && <NotAuth closeAuth={() => setUnAuth((prev:boolean) => !prev)}/>}
       <div className="blur" onClick={closePopUp}>
       </div>
       <div className="content" style={{
@@ -47,7 +144,6 @@ const PopUp = ({ props, themeColor, closePopUp }: Props) => {
             textOverflow: 'break',
             width: '45%',
             display: 'flex',
-            //justifyContent:'center',
             alignItems: 'center',
             padding: '0 20px'
           }}>{props.title}</div>
@@ -62,6 +158,40 @@ const PopUp = ({ props, themeColor, closePopUp }: Props) => {
               <p key={index}>...{item}</p>
             ))
           }
+        </div>
+        <div className="comments-block">
+          <span style={{fontWeight:500}}>Comments</span>
+          <ul style={{
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div ref={top}></div>
+          {commentsArray.map((item:any, index:number) => (
+            <CommentItem key={index} 
+                image={item.image}
+                username={item.owner_username}
+                content={item.content}
+            />
+          ))}
+            <div ref={bottom}></div>
+          </ul>
+            <form style={{display: 'flex', alignItems: 'center', gap: '10px'}}
+          onSubmit={handlePostComment}>
+            <Textarea placeholder="Enter your comment" 
+                onKeyDown={(key) => {
+              if(key.keyCode === 13 && !key.shiftKey) {
+                  handlePostComment(key)
+              }
+            }} style={{
+              resize: 'none'
+            }} height={100}
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+            />
+            <Button type="submit" style={{
+              borderRadius: '50%'
+            }}><ArrowRightIcon/></Button>
+          </form>
         </div>
       </div>
     </div>

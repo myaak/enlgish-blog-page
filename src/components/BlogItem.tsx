@@ -4,6 +4,7 @@ import { Box, Text, useForceUpdate } from '@chakra-ui/react'
 import { Image } from '@chakra-ui/react'
 import PopUp from './PopUp'
 import { AccountContext } from './UserContext'
+import { borderRadius } from '@mui/system'
 
 interface Props {
   props: any,
@@ -15,75 +16,89 @@ const BlogItem = ({ props, themeColor }: Props) => {
   const [openPop, setOpenPop] = useState<boolean>(false)
   const { user } = useContext(AccountContext)
   const [liked, setLiked] = useState<boolean>(props.isLiked)
+  const [likesCounter, setLikesCounter] = useState<number>(props.likes)
 
-  const [clicked, setClicked] = useState<boolean>(false)
 
   const navigate = useNavigate()
 
-  console.log(liked)
+
 
   useEffect(() => {
+    setLiked(props.isLiked)
 
-  },[liked])
+  }, [props.isLiked])
 
   const handleLikePost = async () => {
     if (!user.loggedIn) {
       navigate('/login')
       return;
     }
-     await fetch('http://193.201.88.172:7000/likes/liked', {
-       method: "POST",
-       credentials: "include",
-       headers: {
-         "Content-Type": "application/json"
-       },
-       body: JSON.stringify({ email: user.email, blog_id: props.id })
-     })
-       .catch(err => {
-         console.log(err)
-         return
-       })
-       .then(res => {
-         if (!res || !res.ok) {
-           return
-         }
-         return res.json()
-       })
-       .then(data => {
-        setLiked(data.response)
-     })
-    .finally(() => {
+    await fetch('http://193.201.88.172:7000/likes/liked', {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email: user.email, blog_id: props.id })
     })
+      .catch(err => {
+        console.log(err)
+        return
+      })
+      .then(res => {
+        if (!res || !res.ok) {
+          return
+        }
+        return res.json()
+      })
+      .then(data => {
+        setLiked(data.response)
+        if (data.response) {
+          setLikesCounter((prev) => prev + 1)
+        }
+        else {
+          setLikesCounter((prev) => prev - 1)
+        }
+      })
+      .finally(() => {
+      })
+  }
 
-
+  const handleOpenClosePop = () => {
+    setOpenPop((prev:boolean) => !prev)
   }
 
   return (
+    <Box className="blog-item" style={{
+      margin:'0 auto'
+    }}
+    >
+      {openPop &&
+        <PopUp
+          props={{ id: props.id, image: props.image, title: props.title, content: props.content }}
+          closePopUp={() => setOpenPop(false)}
+          themeColor={themeColor}
+        />
+      }
     <Box className="blog-item"
       style={{
+        width: '90%',
+        height: '90%',
         paddingTop: '10px',
-        paddingBottom: '10px',
         borderRadius: '15px'
       }}
       _hover={{
         cursor: 'pointer',
         backgroundColor: themeColor === "dark" ? "#3A3C4E" : "#d2d4d6"
       }}
+      onClick={handleOpenClosePop}
     >
-      {openPop &&
-        <PopUp
-          props={{ image: props.image, title: props.title, content: props.content }}
-          closePopUp={() => setOpenPop((prev: boolean) => !prev)}
-          themeColor={themeColor}
-        />
-      }
       <div className="blog-item__container" style={{
         width: '100%',
         height: '100%'
       }} >
         <div className="blog-item__logo" style={{
         }}
-          onClick={() => setOpenPop((prev: boolean) => !prev)}
         >
           <Image style={{
             width: '400px',
@@ -101,7 +116,6 @@ const BlogItem = ({ props, themeColor }: Props) => {
         }}
         >
           <div
-            onClick={() => setOpenPop((prev: boolean) => !prev)}
           >
             <Text className="blog-item__date">
               {props.date}
@@ -122,23 +136,67 @@ const BlogItem = ({ props, themeColor }: Props) => {
             }}>
             </div>
           </div>
-          <Box style={{ display: 'flex', gap: '5px', alignItems: 'center' }} 
-            className="blog-item__like-icon" 
+        </div>
+      </div>
+    </Box>
+      <Box className="blog-item__info"
+        _hover={{
+        }}
+        style={{ 
+          display: 'flex', 
+          gap: '5px',
+          flexDirection: 'row',  
+          justifyContent: 'space-between',
+          margin: '0 auto'
+      }}
+       >
+        <div style={{display: 'flex'}}
+        onClick={handleLikePost}
+        >
+          <Box style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            padding: '5px 5px',
+            borderRadius: '15px'
+          }}
             _hover={{
               cursor: 'pointer',
               backgroundColor: themeColor === "dark" ? "#3A3C4E" : "#d2d4d6"
             }}
-            onClick={() => handleLikePost()}
+
           >
-            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill={`${props.isLiked ? "red" : "none"}`} stroke-linecap="round" stroke-linejoin="round" className="css-i6dzq1">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill={`${liked ? "red" : "none"}`} strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
               </path>
             </svg>
-            <div>{props.likes}</div>
+            <div>{likesCounter}</div>
           </Box>
         </div>
-      </div>
-    </Box>
+          <Box style={{
+          display: 'flex',
+          gap: '5px',
+          alignItems: 'center',
+          padding: '5px 5px',
+          borderRadius: '15px'
+        }}
+          _hover={{
+            cursor: 'pointer',
+            backgroundColor: themeColor === "dark" ? "#3A3C4E" : "#d2d4d6"
+          }}
+          onClick={() => {
+              setOpenPop((prev) => !prev)
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
+            </path>
+          </svg>
+          <div>{
+            props.commentsCounter[0]?.overall ? props.commentsCounter[0]?.overall : 0}</div>
+        </Box>
+      </Box>
+</Box>
 
   )
 }

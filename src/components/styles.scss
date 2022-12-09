@@ -53,9 +53,11 @@ main {
     top: 50%;
     transform: translate(-50%, -50%);
     overflow-x: hidden;
+    z-index: 2023;
     
     .popup__header {
       @media screen and (max-width: 440px) {
+        transform: translate(-50%, -60%);
     
       }
     }
@@ -224,7 +226,6 @@ main {
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap: 10px;
 
 
 
@@ -455,5 +456,28 @@ main {
       align-items:center;
       gap: 20px;
     }
+  }
+}
+
+.notauth {
+  position:fixed;
+  left:0;
+  top: 0;
+  width:100vw;
+  height:100vh;
+  z-index: 4000;
+
+  &__content {
+   padding: 15px 10px;
+   display:flex;
+   gap: 15px;
+   flex-direction:column;
+   align-items:center;
+   position:absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   overflow-x: hidden;
+   border-radius: 15px;
   }
 }
