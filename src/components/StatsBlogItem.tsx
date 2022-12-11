@@ -22,7 +22,7 @@ const StatsBlogItem = ({ props, themeColor }: Props) => {
     >
       <Box className="blog-item"
         style={{
-          width: '400%', //tyt nado flex dat v css
+          width: '100%', //tyt nado flex dat v css
           height: '100%',
           paddingTop: '10px',
           borderRadius: '15px'
