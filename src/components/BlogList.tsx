@@ -12,6 +12,7 @@ const BlogList = ({ blogs, comments, liked, themeColor }: Props) => {
     <div className="blog-list">
       <ul>
         {blogs.map((item: any, index: number) => (
+          <li>
           <BlogItem
             key={index}
             props={{
@@ -27,6 +28,7 @@ const BlogList = ({ blogs, comments, liked, themeColor }: Props) => {
             }}
             themeColor={themeColor}
           />
+          </li>
         ))}
       </ul>
     </div>

@@ -5,6 +5,7 @@ import { AppRouter, Navbar } from './components'
 import { BrowserRouter } from 'react-router-dom'
 import UserContext, { AccountContext } from './components/UserContext'
 import "./components/styles.scss"
+import Dashboard from './components/Dashboard'
 import './font/Sora-Regular.ttf'
 
 
@@ -13,9 +14,6 @@ function App() {
 
   const { colorMode, toggleColorMode } = useColorMode()
   const { user, setUser } = useContext(AccountContext)
-
-
-  console.log(user)
 
   return (
     <UserContext>

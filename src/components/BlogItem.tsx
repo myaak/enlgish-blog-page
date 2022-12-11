@@ -82,8 +82,8 @@ const BlogItem = ({ props, themeColor }: Props) => {
       }
     <Box className="blog-item"
       style={{
-        width: '90%',
-        height: '90%',
+        width: '105%',
+        height: '105%',
         paddingTop: '10px',
         borderRadius: '15px'
       }}

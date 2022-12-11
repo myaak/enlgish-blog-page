@@ -1,7 +1,7 @@
 import { useState, useContext } from "react"
 import { Avatar, Box, Button } from "@chakra-ui/react"
 import { AccountContext } from "./UserContext"
-import AddTopic from "../AddTopic"
+import AddTopic from "./AddTopic"
 
 interface Props {
   closePanel: () => void
