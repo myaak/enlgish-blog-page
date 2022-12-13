@@ -65,12 +65,12 @@ const BlogItem = ({ props, themeColor }: Props) => {
   }
 
   const handleOpenClosePop = () => {
-    setOpenPop((prev:boolean) => !prev)
+    setOpenPop((prev: boolean) => !prev)
   }
 
   return (
     <Box className="blog-item" style={{
-      margin:'0 auto'
+      margin: '0 auto'
     }}
     >
       {openPop &&
@@ -80,78 +80,76 @@ const BlogItem = ({ props, themeColor }: Props) => {
           themeColor={themeColor}
         />
       }
-    <Box className="blog-item"
-      style={{
-        width: '90%',
-        height: '90%',
-        paddingTop: '10px',
-        borderRadius: '15px'
-      }}
-      _hover={{
-        cursor: 'pointer',
-        backgroundColor: themeColor === "dark" ? "#3A3C4E" : "#d2d4d6"
-      }}
-      onClick={handleOpenClosePop}
-    >
-      <div className="blog-item__container" style={{
-        width: '100%',
-        height: '100%'
-      }} >
-        <div className="blog-item__logo" style={{
+      <Box className="blog-item blog-width"
+        style={{
+          paddingTop: '10px',
+          borderRadius: '15px'
         }}
-        >
-          <Image style={{
-            width: '400px',
-            height: '225px',
-            borderRadius: '15px',
-            objectFit: 'cover'
+        _hover={{
+          cursor: 'pointer',
+          backgroundColor: themeColor === "dark" ? "#3A3C4E" : "#d2d4d6"
+        }}
+        onClick={handleOpenClosePop}
+      >
+        <div className="blog-item__container" style={{
+          width: '100%',
+          height: '100%'
+        }} >
+          <div className="blog-item__logo" style={{
           }}
-            _hover={{
-              transform: 'scale(1.5)'
-            }}
-            src={props.image} />
-        </div>
-        <div className="blog-item__info" style={{
-          marginTop: '5px'
-        }}
-        >
-          <div
           >
-            <Text className="blog-item__date">
-              {props.date}
-            </Text>
-            <Text _hover={{
-              color: "#03a9f4",
-              cursor: 'pointer'
+            <Image style={{
+              width: '400px',
+              height: '225px',
+              borderRadius: '15px',
+              objectFit: 'cover'
             }}
-              className="blog-item__title">
-              {props.title}
-            </Text>
-            <Text className="blog-item__description">
-              {props.description}
-            </Text>
-            <div className="blog-item__like" style={{
-              display: 'flex',
-              gap: '10px'
-            }}>
+              _hover={{
+                transform: 'scale(1.5)'
+              }}
+              src={props.image} />
+          </div>
+          <div className="blog-item__info" style={{
+            marginTop: '5px'
+          }}
+          >
+            <div
+            >
+              <Text className="blog-item__date">
+                {props.date}
+              </Text>
+              <Text _hover={{
+                color: "#03a9f4",
+                cursor: 'pointer'
+              }}
+                className="blog-item__title">
+                {props.title}
+              </Text>
+              <Text className="blog-item__description">
+                {props.description}
+              </Text>
+              <div className="blog-item__like" style={{
+                display: 'flex',
+                gap: '10px'
+              }}>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Box>
+      </Box>
       <Box className="blog-item__info"
         _hover={{
         }}
-        style={{ 
-          display: 'flex', 
+        style={{
+          display: 'flex',
           gap: '5px',
-          flexDirection: 'row',  
+          flexDirection: 'row',
           justifyContent: 'space-between',
           margin: '0 auto'
-      }}
-       >
-        <div style={{display: 'flex'}}
-        onClick={handleLikePost}
+        }}
+      >
+        <div style={{ display: 'flex' }}
+          onClick={handleLikePost}
         >
           <Box style={{
             display: 'flex',
@@ -173,7 +171,7 @@ const BlogItem = ({ props, themeColor }: Props) => {
             <div>{likesCounter}</div>
           </Box>
         </div>
-          <Box style={{
+        <Box style={{
           display: 'flex',
           gap: '5px',
           alignItems: 'center',
@@ -185,7 +183,7 @@ const BlogItem = ({ props, themeColor }: Props) => {
             backgroundColor: themeColor === "dark" ? "#3A3C4E" : "#d2d4d6"
           }}
           onClick={() => {
-              setOpenPop((prev) => !prev)
+            setOpenPop((prev) => !prev)
           }}
         >
           <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
@@ -196,7 +194,7 @@ const BlogItem = ({ props, themeColor }: Props) => {
             props.commentsCounter[0]?.overall ? props.commentsCounter[0]?.overall : 0}</div>
         </Box>
       </Box>
-</Box>
+    </Box>
 
   )
 }

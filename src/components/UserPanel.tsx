@@ -1,21 +1,27 @@
 import { useState, useContext } from "react"
 import { Avatar, Box, Button } from "@chakra-ui/react"
 import { AccountContext } from "./UserContext"
-import AddTopic from "../AddTopic"
+import AddTopic from "./AddTopic"
+import Dashboard from "./Dashboard"
 
 interface Props {
   closePanel: () => void
   themeColor: string
 }
 
-const UserPanel = ({ closePanel, themeColor }:Props) => {
+const UserPanel = ({ closePanel, themeColor }: Props) => {
 
   const { user, setUser } = useContext(AccountContext)
 
+  const [dashboard, setDashboard] = useState<boolean>(false)
   const [topic, setTopic] = useState<boolean>(false)
 
   const openNewTopic = () => {
-    setTopic((prev:boolean) => !prev)
+    setTopic((prev: boolean) => !prev)
+  }
+
+  const openDashboard = () => {
+    setDashboard((prev: boolean) => !prev)
   }
 
   const handleLogOut = async () => {
@@ -45,20 +51,22 @@ const UserPanel = ({ closePanel, themeColor }:Props) => {
 
   return (
     <Box className="userpanel">
-      {topic && <AddTopic themeColor={themeColor} closeAddition={openNewTopic}/>}
+      {dashboard && <Dashboard themeColor={themeColor} />}
+      {topic && <AddTopic themeColor={themeColor} closeAddition={openNewTopic} />}
       <div className="userpanel__blur" onClick={closePanel}>
       </div>
       <div className="userpanel__content" style={{
         backgroundColor: themeColor === "dark" ? "#1a202c" : "#fff",
       }}>
         <div className="userpanel__content__info">
-          <Avatar src=""/>
+          <Avatar src="" />
           <span>{user.username}</span>
         </div>
-          { user.isAdmin &&
+        {user.isAdmin &&
           <Button colorScheme={'blue'} type="button" onClick={openNewTopic}>Create new blog</Button>
-          }
-          <Button colorScheme={'blue'} type="button" onClick={handleLogOut}>Log Out</Button>
+        }
+        <Button colorScheme={'blue'} type="button" onClick={openDashboard}>Dashboard</Button>
+        <Button colorScheme={'blue'} type="button" onClick={handleLogOut}>Log Out</Button>
       </div>
     </Box>
   )
