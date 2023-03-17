@@ -1,1 +1,0 @@
-SELECT c.*, u.username FROM COMMENTS c, USERS u WHERE c.BLOG_ID = $1 AND u.ID = c.owner_id
